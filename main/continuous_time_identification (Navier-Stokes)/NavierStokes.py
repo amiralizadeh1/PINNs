@@ -77,8 +77,8 @@ class PhysicsInformedNN:
                                                                            'maxcor': 50,
                                                                            'maxls': 50,
                                                                            'ftol' : 1.0 * np.finfo(float).eps})
-        # know more about the options: docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html
-        # you can see reasonable lambda1 and lambda values from iteration 10000
+        # learn more about the options: docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html
+        
         
         self.optimizer_Adam = tf.train.AdamOptimizer()
         self.train_op_Adam = self.optimizer_Adam.minimize(self.loss)                    
@@ -320,6 +320,7 @@ if __name__ == "__main__":
     # Training
     model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers)
     model.train(200000)
+    # you can see reasonable lambda1 and lambda values from iteration 10000
         
     lambda_1_value_noisy = model.sess.run(model.lambda_1)
     lambda_2_value_noisy = model.sess.run(model.lambda_2)
