@@ -1,9 +1,13 @@
 """
 @author: Maziar Raissi
 """
-
+#run it on google colab to make tensorflow 1 installation easy
+pip install tensorflow==1.14.0 #this code works in tensorflow version 1 (not working on v2).
+print(tf.__version__)
+from google.colab import drive
+drive.mount('/content/drive')
 import sys
-sys.path.insert(0, '../../Utilities/')
+sys.path.insert(0, '/content/drive/MyDrive/Utilities')
 
 import tensorflow as tf
 import numpy as np
@@ -72,7 +76,9 @@ class PhysicsInformedNN:
                                                                            'maxfun': 50000,
                                                                            'maxcor': 50,
                                                                            'maxls': 50,
-                                                                           'ftol' : 1.0 * np.finfo(float).eps})        
+                                                                           'ftol' : 1.0 * np.finfo(float).eps})
+        # know more about the options: docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html
+        # you can see reasonable lambda1 and lambda values from iteration 10000
         
         self.optimizer_Adam = tf.train.AdamOptimizer()
         self.train_op_Adam = self.optimizer_Adam.minimize(self.loss)                    
@@ -212,7 +218,7 @@ if __name__ == "__main__":
     layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
     
     # Load Data
-    data = scipy.io.loadmat('../Data/cylinder_nektar_wake.mat')
+    data_vort = scipy.io.loadmat('/content/drive/MyDrive/Data/cylinder_nektar_wake.mat')
            
     U_star = data['U_star'] # N x 2 x T
     P_star = data['p_star'] # N x T
