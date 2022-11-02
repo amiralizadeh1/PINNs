@@ -1,5 +1,7 @@
-from google.colab import drive
-drive.mount('/content/drive')
+"""
+@author: Maziar Raissi
+"""
+#make sure you install TensorFlow v1 and add google drive directory.
 import sys
 sys.path.insert(0, '/content/drive/MyDrive/Utilities') #upload utilities folder to your google drive before running the lines
 
