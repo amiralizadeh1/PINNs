@@ -1,13 +1,7 @@
-"""
-@author: Maziar Raissi
-"""
-#run it on google colab to make tensorflow 1 installation easy
-pip install tensorflow==1.14.0 #this code works in tensorflow version 1 (not working on v2).
-print(tf.__version__)
 from google.colab import drive
 drive.mount('/content/drive')
 import sys
-sys.path.insert(0, '/content/drive/MyDrive/Utilities')
+sys.path.insert(0, '/content/drive/MyDrive/Utilities') #upload utilities folder to your google drive before running the lines
 
 import tensorflow as tf
 import numpy as np
@@ -216,9 +210,9 @@ if __name__ == "__main__":
     N_train = 5000
     
     layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
-    
+
     # Load Data
-    data_vort = scipy.io.loadmat('/content/drive/MyDrive/Data/cylinder_nektar_wake.mat')
+    data = scipy.io.loadmat('/content/drive/MyDrive/Data/cylinder_nektar_wake.mat')
            
     U_star = data['U_star'] # N x 2 x T
     P_star = data['p_star'] # N x T
@@ -258,7 +252,8 @@ if __name__ == "__main__":
 
     # Training
     model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers)
-    model.train(200000)
+    model.train(10000)
+    # you can see reasonable lambda1 and lambda values from iteration 10000
     
     # Test Data
     snap = np.array([100])
@@ -319,7 +314,7 @@ if __name__ == "__main__":
 
     # Training
     model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers)
-    model.train(200000)
+    model.train(10000)
     # you can see reasonable lambda1 and lambda values from iteration 10000
         
     lambda_1_value_noisy = model.sess.run(model.lambda_1)
@@ -337,7 +332,7 @@ if __name__ == "__main__":
     ############################# Plotting ###############################
     ######################################################################    
      # Load Data
-    data_vort = scipy.io.loadmat('../Data/cylinder_nektar_t0_vorticity.mat')
+    data_vort = scipy.io.loadmat('/content/drive/MyDrive/Data/cylinder_nektar_t0_vorticity.mat')
            
     x_vort = data_vort['x'] 
     y_vort = data_vort['y'] 
